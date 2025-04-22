@@ -1,0 +1,97 @@
+[gd_scene load_steps=12 format=3 uid="uid://bysbasdhdtyrg"]
+
+[ext_resource type="Texture2D" uid="uid://tontyvavqiwm" path="res://assests/sprites/cards.png" id="1_j3qa1"]
+[ext_resource type="Script" path="res://scripts/card.gd" id="2_6ky16"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvam3"]
+atlas = ExtResource("1_j3qa1")
+region = Rect2(48, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b08wb"]
+atlas = ExtResource("1_j3qa1")
+region = Rect2(144, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7qt4"]
+atlas = ExtResource("1_j3qa1")
+region = Rect2(240, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byf6c"]
+atlas = ExtResource("1_j3qa1")
+region = Rect2(336, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkrls"]
+atlas = ExtResource("1_j3qa1")
+region = Rect2(432, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsnje"]
+atlas = ExtResource("1_j3qa1")
+region = Rect2(384, 0, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rruys"]
+atlas = ExtResource("1_j3qa1")
+region = Rect2(480, 0, 48, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iicvx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dvam3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b08wb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7qt4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byf6c")
+}],
+"loop": false,
+"name": &"default",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkrls")
+}],
+"loop": false,
+"name": &"majuscule",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsnje")
+}],
+"loop": false,
+"name": &"minuscule",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rruys")
+}],
+"loop": false,
+"name": &"selected",
+"speed": 1.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8y8ns"]
+size = Vector2(48, 64)
+
+[node name="Card" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_iicvx")
+script = ExtResource("2_6ky16")
+
+[node name="value" type="Label" parent="."]
+offset_left = -4.0
+offset_top = -13.0
+offset_right = 8.0
+offset_bottom = 10.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_8y8ns")
+
+[connection signal="input_event" from="Area2D" to="." method="_on_area_2d_input_event"]

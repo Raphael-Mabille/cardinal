@@ -1,0 +1,152 @@
+[gd_scene load_steps=10 format=4 uid="uid://dl533welglro5"]
+
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_i2r8q"]
+[ext_resource type="PackedScene" uid="uid://l3rymdu4v2se" path="res://scenes/deck_of_cards.tscn" id="2_gpse3"]
+[ext_resource type="Texture2D" uid="uid://bxcq5taa3a205" path="res://assests/sprites/mat.png" id="3_8d42h"]
+[ext_resource type="Texture2D" uid="uid://bbl1exw67ssdo" path="res://assests/sprites/enter.png" id="4_5mek4"]
+[ext_resource type="Texture2D" uid="uid://b4t6jrc1dypjk" path="res://assests/sprites/del_bt.png" id="5_cevht"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_17hvu"]
+texture = ExtResource("3_8d42h")
+texture_region_size = Vector2i(64, 32)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+2:1/0 = 0
+1:1/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+2:3/0 = 0
+1:3/0 = 0
+0:3/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_k4gwo"]
+tile_size = Vector2i(64, 32)
+sources/0 = SubResource("TileSetAtlasSource_17hvu")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p20ra"]
+atlas = ExtResource("5_cevht")
+region = Rect2(0, 0, 160, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_svvd5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p20ra")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="main" type="Node2D"]
+script = ExtResource("1_i2r8q")
+card_to_return = 5
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAADAAUAAAAAAAEAAAADAAYAAAAAAAEAAAADAAcAAAAAAAEAAAADAAgAAAAAAAEAAAADAAkAAAAAAAEAAAADAAoAAAAAAAEAAAADAAsAAAAAAAEAAAADAAwAAAAAAAEAAAADAA0AAAAAAAEAAAADAA4AAAAAAAIAAAAEAA4AAAABAAEAAAAFAA4AAAABAAEAAAAGAA4AAAABAAEAAAAHAA4AAAABAAEAAAAIAA4AAAACAAEAAAADAAMAAAAAAAAAAAADAAQAAAAAAAEAAAAIAAMAAAACAAAAAAAHAAMAAAABAAAAAAAGAAMAAAABAAAAAAAFAAMAAAABAAAAAAAEAAMAAAABAAAAAAAEAAQAAAABAAEAAAAEAAUAAAABAAEAAAAEAAYAAAABAAEAAAAEAAcAAAABAAEAAAAEAAgAAAABAAEAAAAEAAkAAAABAAEAAAAEAAoAAAABAAEAAAAEAAsAAAABAAEAAAAFAAwAAAABAAEAAAAFAA0AAAABAAEAAAAGAA0AAAABAAEAAAAGAAwAAAABAAEAAAAGAAsAAAABAAEAAAAGAAoAAAABAAEAAAAGAAkAAAABAAEAAAAGAAgAAAABAAEAAAAGAAcAAAABAAEAAAAGAAYAAAABAAEAAAAFAAYAAAABAAEAAAAFAAUAAAABAAEAAAAFAAQAAAABAAEAAAAFAAcAAAABAAEAAAAFAAgAAAABAAEAAAAFAAkAAAABAAEAAAAFAAoAAAABAAEAAAAFAAsAAAABAAEAAAAEAA0AAAABAAEAAAAEAAwAAAABAAEAAAAHAAoAAAABAAEAAAAHAAkAAAABAAEAAAAHAAgAAAABAAEAAAAHAAcAAAABAAEAAAAHAAYAAAABAAEAAAAHAAUAAAABAAEAAAAHAAQAAAABAAEAAAAGAAQAAAABAAEAAAAGAAUAAAABAAEAAAAHAAsAAAABAAEAAAAHAAwAAAABAAEAAAAHAA0AAAABAAEAAAAIAAQAAAACAAEAAAAIAAUAAAACAAEAAAAIAAYAAAACAAEAAAAIAAcAAAACAAEAAAAIAAgAAAACAAEAAAAIAAkAAAACAAEAAAAIAAoAAAACAAEAAAAIAAsAAAACAAEAAAAIAAwAAAACAAEAAAAIAA0AAAACAAEAAAAIAA8AAAACAAMAAAAHAA8AAAABAAMAAAAGAA8AAAABAAMAAAAFAA8AAAABAAMAAAAEAA8AAAABAAMAAAADAA8AAAAAAAMAAAAJAAMAAAAAAAAAAAAKAAMAAAABAAAAAAALAAMAAAACAAAAAAAJAAQAAAAAAAMAAAAKAAQAAAABAAMAAAALAAQAAAACAAMAAAA=")
+tile_set = SubResource("TileSet_k4gwo")
+
+[node name="temp_score" type="Label" parent="."]
+offset_left = 581.0
+offset_top = 70.0
+offset_right = 632.0
+offset_bottom = 93.0
+text = "valeur du mot :"
+
+[node name="temp_score_val" type="Label" parent="temp_score"]
+layout_mode = 0
+offset_left = 120.0
+offset_top = 1.0
+offset_right = 160.0
+offset_bottom = 24.0
+text = "0"
+
+[node name="score_label" type="Label" parent="."]
+offset_left = 196.0
+offset_top = 35.0
+offset_right = 247.0
+offset_bottom = 58.0
+text = "score :"
+
+[node name="score_label_val" type="Label" parent="score_label"]
+layout_mode = 0
+offset_left = 55.0
+offset_right = 95.0
+offset_bottom = 23.0
+text = "0"
+
+[node name="deck_of_cards" parent="." instance=ExtResource("2_gpse3")]
+position = Vector2(806, 132)
+
+[node name="play_area" type="Marker2D" parent="."]
+position = Vector2(255, 170)
+
+[node name="hand" type="Marker2D" parent="."]
+position = Vector2(608, 101)
+
+[node name="hand_label" type="Label" parent="hand"]
+offset_left = 11.0
+offset_top = 7.0
+offset_right = 51.0
+offset_bottom = 30.0
+text = "\"\""
+
+[node name="card_left" type="Label" parent="."]
+offset_left = 195.0
+offset_top = 59.0
+offset_right = 337.0
+offset_bottom = 82.0
+text = "carte à retourner :"
+
+[node name="card_left_label" type="Label" parent="card_left"]
+layout_mode = 0
+offset_left = 147.0
+offset_right = 187.0
+offset_bottom = 23.0
+text = "0"
+
+[node name="confirm" type="Button" parent="."]
+offset_left = 613.0
+offset_top = 195.0
+offset_right = 751.0
+offset_bottom = 226.0
+text = "confirmer le mot"
+
+[node name="Sprite2D" type="Sprite2D" parent="confirm"]
+position = Vector2(186, 10)
+scale = Vector2(0.390625, 0.390625)
+texture = ExtResource("4_5mek4")
+
+[node name="del_1" type="Button" parent="."]
+offset_left = 613.0
+offset_top = 236.0
+offset_right = 810.0
+offset_bottom = 267.0
+text = "effacer la dernière lettre"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="del_1"]
+position = Vector2(244, 17)
+scale = Vector2(0.45, 0.45)
+sprite_frames = SubResource("SpriteFrames_svvd5")
+
+[node name="del_all" type="Button" parent="."]
+offset_left = 614.0
+offset_top = 276.0
+offset_right = 730.0
+offset_bottom = 307.0
+text = "effacer le mot"
+
+[node name="new_game" type="Button" parent="."]
+offset_left = 616.0
+offset_top = 318.0
+offset_right = 743.0
+offset_bottom = 349.0
+text = "Nouvelle partie"
+
+[connection signal="button_up" from="confirm" to="." method="_on_confirm_button_up"]
+[connection signal="button_up" from="del_1" to="." method="_on_del_1_button_up"]
+[connection signal="button_up" from="del_all" to="." method="_on_del_all_button_up"]
+[connection signal="button_up" from="new_game" to="." method="_on_new_game_button_up"]

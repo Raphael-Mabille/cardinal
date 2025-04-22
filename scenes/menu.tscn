@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxm0drsbde21d"]
+
+[ext_resource type="Texture2D" uid="uid://c6mnutbk5obyj" path="res://assests/sprites/bg_cover.png" id="1_e7xm2"]
+[ext_resource type="Script" path="res://scripts/menu.gd" id="1_jnlx4"]
+[ext_resource type="Texture2D" uid="uid://clsfk7iy45dme" path="res://assests/sprites/presentation_jeu_cardinal_couverture.jpg" id="2_76hm7"]
+[ext_resource type="Script" path="res://scripts/camera_2d.gd" id="4_52ndb"]
+[ext_resource type="Script" path="res://scripts/rules_container.gd" id="5_vchfv"]
+
+[node name="menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_jnlx4")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(577, 324)
+script = ExtResource("4_52ndb")
+
+[node name="bg" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(274, 91)
+texture = ExtResource("1_e7xm2")
+
+[node name="bg" type="Sprite2D" parent="bg"]
+position = Vector2(-1921, 2)
+texture = ExtResource("1_e7xm2")
+
+[node name="front" type="Sprite2D" parent="."]
+position = Vector2(274, 322)
+texture = ExtResource("2_76hm7")
+
+[node name="start_game" type="Button" parent="."]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 112.0
+offset_right = 768.0
+offset_bottom = 143.0
+text = "Commencer une nouvelle partie"
+
+[node name="choose_rules" type="Button" parent="."]
+layout_mode = 0
+offset_left = 511.0
+offset_top = 153.0
+offset_right = 689.0
+offset_bottom = 184.0
+text = "choisir le mode de jeu"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = -208.0
+offset_top = 148.0
+offset_right = -2.0
+offset_bottom = 485.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("5_vchfv")
+
+[node name="rules_container" type="ScrollContainer" parent="."]
+layout_mode = 2
+offset_left = -1040.0
+offset_top = 7.0
+offset_right = -311.0
+offset_bottom = 507.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="rules_container"]
+layout_mode = 2
+
+[connection signal="button_up" from="start_game" to="." method="_on_start_game_button_up"]
+[connection signal="button_up" from="choose_rules" to="Camera2D" method="_on_choose_rules_button_up"]
