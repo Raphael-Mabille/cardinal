@@ -18,6 +18,12 @@ config/icon="res://icon.svg"
 [autoload]
 
 Global="*res://scripts/global.gd"
+Transition="*res://scenes/transition.tscn"
+Dict="*res://scripts/dict.gd"
+
+[display]
+
+window/stretch/mode="canvas_items"
 
 [input]
 

@@ -10,4 +10,4 @@ func _process(_delta) -> void:
 
 
 func _on_start_game_button_up() -> void:
-	Global.goto_scene("res://scenes/main.tscn")
+	Transition.change_scene("res://scenes/main.tscn")
