@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://cxm0drsbde21d"]
 
 [ext_resource type="Texture2D" uid="uid://c6mnutbk5obyj" path="res://assests/sprites/bg_cover.png" id="1_e7xm2"]
-[ext_resource type="Script" path="res://scripts/menu.gd" id="1_jnlx4"]
+[ext_resource type="Script" uid="uid://dbtwhwpp1gl0s" path="res://scripts/menu.gd" id="1_jnlx4"]
 [ext_resource type="Texture2D" uid="uid://clsfk7iy45dme" path="res://assests/sprites/presentation_jeu_cardinal_couverture.jpg" id="2_76hm7"]
-[ext_resource type="Script" path="res://scripts/rules_container.gd" id="5_vchfv"]
+[ext_resource type="Script" uid="uid://bi2koatu1hsc2" path="res://scripts/rules_container.gd" id="5_vchfv"]
 
 [node name="menu" type="Control"]
 layout_mode = 3
