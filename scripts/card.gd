@@ -1,8 +1,9 @@
 extends AnimatedSprite2D
 
 @export var id : int
-@export var letter : String
+@export var letter : String = "`"
 @export var score : int
+@export var coords : Vector2i
 @onready var value: Label = $value
 
 var state: int = Global.State.HIDDEN
@@ -28,13 +29,15 @@ signal pressed_is
 
 func _on_area_2d_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton and event.pressed:
-		pressed_is.emit(id, self)
+		pressed_is.emit(id)
 
 func select() -> void:
 	state = Global.State.SELECTED
 
-func letter_to_index(letter: String) -> int:
-	return letter.to_upper().unicode_at(0) - "A".unicode_at(0) + 1
+func letter_to_index(_letter: String) -> int:
+	if (_letter == '`'):
+		return 0
+	return _letter.to_upper().unicode_at(0) - "A".unicode_at(0) + 1
 
 func reveal(maj: bool) -> void:
 	capital = maj

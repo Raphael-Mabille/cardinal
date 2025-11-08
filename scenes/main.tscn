@@ -1,9 +1,13 @@
-[gd_scene load_steps=7 format=3 uid="uid://dl533welglro5"]
+[gd_scene load_steps=11 format=3 uid="uid://dl533welglro5"]
 
-[ext_resource type="Script" uid="uid://ceti8jmnm7xgc" path="res://scripts/main.gd" id="1_i2r8q"]
+[ext_resource type="Script" path="res://scripts/main.gd" id="1_i2r8q"]
 [ext_resource type="PackedScene" uid="uid://l3rymdu4v2se" path="res://scenes/deck_of_cards.tscn" id="2_gpse3"]
+[ext_resource type="PackedScene" uid="uid://vnrmxmt6hkgk" path="res://scenes/score_board.tscn" id="2_tbgi4"]
+[ext_resource type="PackedScene" uid="uid://gjq7qx2twlwx" path="res://scenes/message.tscn" id="2_tefeu"]
 [ext_resource type="Texture2D" uid="uid://bbl1exw67ssdo" path="res://assests/sprites/enter.png" id="4_5mek4"]
 [ext_resource type="Texture2D" uid="uid://b4t6jrc1dypjk" path="res://assests/sprites/del_bt.png" id="5_cevht"]
+[ext_resource type="PackedScene" uid="uid://d07bnoyigxpbx" path="res://scenes/post_game_screen.tscn" id="7_xnkkw"]
+[ext_resource type="Texture2D" uid="uid://ct5kaw0xrkg0i" path="res://assests/sprites/rules.png" id="8_gcldf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_p20ra"]
 atlas = ExtResource("5_cevht")
@@ -35,7 +39,16 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0.423529, 0.0745098, 0.113725, 1)
 
-[node name="control" type="Node" parent="."]
+[node name="cardsHolder" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="message" parent="control" instance=ExtResource("2_tefeu")]
+position = Vector2(-286, 486)
 
 [node name="labels" type="Control" parent="control"]
 layout_mode = 3
@@ -47,40 +60,25 @@ offset_bottom = 22.0
 
 [node name="cardToTurn" type="Label" parent="control/labels"]
 layout_mode = 0
-offset_left = 134.0
-offset_top = 87.0
-offset_right = 276.0
-offset_bottom = 110.0
-text = "carte à retourner :"
+offset_left = 458.0
+offset_top = 50.0
+offset_right = 600.0
+offset_bottom = 73.0
+text = "cartes à retourner :"
 
 [node name="cardToTurnLabel" type="Label" parent="control/labels/cardToTurn"]
 layout_mode = 0
-offset_left = 147.0
-offset_right = 187.0
-offset_bottom = 23.0
-text = "0"
-
-[node name="score_label" type="Label" parent="control/labels"]
-layout_mode = 0
-offset_left = 130.0
-offset_top = 199.0
-offset_right = 181.0
-offset_bottom = 222.0
-text = "score :"
-
-[node name="score_label_val" type="Label" parent="control/labels/score_label"]
-layout_mode = 0
-offset_left = 55.0
-offset_right = 95.0
+offset_left = 155.0
+offset_right = 195.0
 offset_bottom = 23.0
 text = "0"
 
 [node name="temp_score" type="Label" parent="control/labels"]
 layout_mode = 0
-offset_left = 127.0
-offset_top = 114.0
-offset_right = 244.0
-offset_bottom = 137.0
+offset_left = 480.0
+offset_top = 611.0
+offset_right = 597.0
+offset_bottom = 634.0
 text = "valeur du mot :"
 
 [node name="temp_score_val" type="Label" parent="control/labels/temp_score"]
@@ -90,27 +88,12 @@ offset_right = 160.0
 offset_bottom = 23.0
 text = "0"
 
-[node name="difficulty" type="Label" parent="control/labels"]
-layout_mode = 0
-offset_left = 130.0
-offset_top = 143.0
-offset_right = 208.0
-offset_bottom = 166.0
-text = "difficulté :"
-
-[node name="difficulty_label" type="Label" parent="control/labels/difficulty"]
-layout_mode = 0
-offset_left = 82.0
-offset_right = 122.0
-offset_bottom = 23.0
-text = "0"
-
 [node name="cardLeft" type="Label" parent="control/labels"]
 layout_mode = 0
-offset_left = 127.0
-offset_top = 172.0
-offset_right = 261.0
-offset_bottom = 195.0
+offset_left = 802.0
+offset_top = 53.0
+offset_right = 936.0
+offset_bottom = 76.0
 text = "cartes restantes :"
 
 [node name="cardLeftLabel" type="Label" parent="control/labels/cardLeft"]
@@ -123,25 +106,10 @@ text = "0"
 [node name="RuleName" type="Label" parent="control/labels"]
 layout_mode = 0
 offset_left = 131.0
-offset_top = 35.0
-offset_right = 230.0
-offset_bottom = 58.0
-text = "Cartomancie"
-
-[node name="maxScore" type="Label" parent="control/labels"]
-layout_mode = 0
-offset_left = 131.0
-offset_top = 60.0
-offset_right = 264.0
-offset_bottom = 83.0
-text = "score maximum :"
-
-[node name="maxScoreLabel" type="Label" parent="control/labels/maxScore"]
-layout_mode = 0
-offset_left = 140.0
-offset_right = 180.0
-offset_bottom = 23.0
-text = "0"
+offset_top = 49.0
+offset_right = 237.0
+offset_bottom = 72.0
+text = "Cartomanie"
 
 [node name="zoning" type="Control" parent="control"]
 layout_mode = 3
@@ -151,76 +119,131 @@ offset_right = 290.0
 offset_bottom = 40.0
 
 [node name="hand" type="Marker2D" parent="control/zoning"]
-position = Vector2(160, 532)
+position = Vector2(100, 532)
 
 [node name="play_area" type="Marker2D" parent="control/zoning"]
 position = Vector2(109, 120)
 
-[node name="buttons" type="Control" parent="control"]
-layout_mode = 3
+[node name="ScoreBoard" parent="control/zoning" instance=ExtResource("2_tbgi4")]
+layout_mode = 1
+offset_left = -231.0
+offset_top = 190.0
+offset_right = -231.0
+offset_bottom = 190.0
+
+[node name="confirmation_prompt" type="Control" parent="control/zoning"]
 anchors_preset = 0
-offset_left = 233.0
-offset_top = 16.0
-offset_right = 273.0
-offset_bottom = 56.0
+offset_left = 83.0
+offset_top = 194.0
+offset_right = 123.0
+offset_bottom = 234.0
+mouse_filter = 2
+
+[node name="rules" type="Button" parent="control"]
+layout_mode = 0
+offset_left = 981.0
+offset_top = 34.0
+offset_right = 1123.0
+offset_bottom = 65.0
+text = "Règles du jeu"
+
+[node name="buttons" type="VBoxContainer" parent="control"]
+layout_mode = 0
+offset_left = 844.0
+offset_top = 206.0
+offset_right = 1083.0
+offset_bottom = 404.0
 
 [node name="confirm" type="Button" parent="control/buttons"]
-layout_mode = 0
-offset_left = 613.0
-offset_top = 195.0
-offset_right = 751.0
-offset_bottom = 226.0
-text = "confirmer le mot"
+layout_mode = 2
+text = " confirmer le mot"
+alignment = 0
 
 [node name="Sprite2D" type="Sprite2D" parent="control/buttons/confirm"]
-position = Vector2(186, 10)
-scale = Vector2(0.390625, 0.390625)
+position = Vector2(217, 16)
+scale = Vector2(0.171875, 0.179688)
 texture = ExtResource("4_5mek4")
 
-[node name="draw_new_card" type="Button" parent="control/buttons"]
-layout_mode = 0
-offset_left = 615.0
-offset_top = 318.0
-offset_right = 852.0
-offset_bottom = 349.0
-text = "retourner de nouvelles cartes"
-
-[node name="endGame" type="Button" parent="control/buttons"]
-layout_mode = 0
-offset_left = 615.0
-offset_top = 361.0
-offset_right = 784.0
-offset_bottom = 392.0
-text = "mettre fin à la partie"
-
-[node name="del_all" type="Button" parent="control/buttons"]
-layout_mode = 0
-offset_left = 614.0
-offset_top = 276.0
-offset_right = 730.0
-offset_bottom = 307.0
-text = "effacer le mot"
+[node name="ColorRect" type="ColorRect" parent="control/buttons"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0.423529, 0.0745098, 0.113725, 1)
 
 [node name="del_1" type="Button" parent="control/buttons"]
-layout_mode = 0
-offset_left = 613.0
-offset_top = 236.0
-offset_right = 810.0
-offset_bottom = 267.0
-text = "effacer la dernière lettre"
+layout_mode = 2
+text = " effacer la dernière lettre         "
+alignment = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="control/buttons/del_1"]
-position = Vector2(244, 17)
-scale = Vector2(0.45, 0.45)
+position = Vector2(219, 15)
+scale = Vector2(0.2125, 0.25)
 sprite_frames = SubResource("SpriteFrames_svvd5")
 
+[node name="del_all" type="Button" parent="control/buttons"]
+layout_mode = 2
+text = " effacer le mot"
+alignment = 0
+
+[node name="ColorRect2" type="ColorRect" parent="control/buttons"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0.423529, 0.0745098, 0.113725, 1)
+
+[node name="draw_new_card" type="Button" parent="control/buttons"]
+layout_mode = 2
+text = " passer son tour"
+alignment = 0
+
+[node name="ColorRect3" type="ColorRect" parent="control/buttons"]
+custom_minimum_size = Vector2(0, 5)
+layout_mode = 2
+color = Color(0.423529, 0.0745098, 0.113725, 1)
+
+[node name="endGame" type="Button" parent="control/buttons"]
+layout_mode = 2
+text = " mettre fin à la partie"
+alignment = 0
+
 [node name="deck_of_cards" parent="." instance=ExtResource("2_gpse3")]
-position = Vector2(259, 287)
+position = Vector2(242, 120)
 
-[node name="cardsHolder" type="Node" parent="."]
+[node name="post_game_screen" parent="." instance=ExtResource("7_xnkkw")]
+visible = false
 
+[node name="rule_container" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="rule_background" type="ColorRect" parent="rule_container"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1152.0
+offset_bottom = 648.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.423529, 0.0745098, 0.113725, 1)
+
+[node name="rule_png" type="Sprite2D" parent="rule_container"]
+position = Vector2(582, 328)
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("8_gcldf")
+
+[node name="validate_rule" type="Button" parent="rule_container"]
+layout_mode = 0
+offset_left = 944.0
+offset_top = 558.0
+offset_right = 1041.0
+offset_bottom = 589.0
+scale = Vector2(1.5, 1.5)
+text = "J'ai compris"
+
+[connection signal="pressed" from="control/rules" to="." method="_on_rules_pressed"]
 [connection signal="button_up" from="control/buttons/confirm" to="." method="_on_confirm_button_up"]
+[connection signal="button_up" from="control/buttons/del_1" to="." method="_on_del_1_button_up"]
+[connection signal="button_up" from="control/buttons/del_all" to="." method="_on_del_all_button_up"]
 [connection signal="button_up" from="control/buttons/draw_new_card" to="." method="_on_draw_new_card_button_up"]
 [connection signal="button_up" from="control/buttons/endGame" to="." method="_on_end_game_button_up"]
-[connection signal="button_up" from="control/buttons/del_all" to="." method="_on_del_all_button_up"]
-[connection signal="button_up" from="control/buttons/del_1" to="." method="_on_del_1_button_up"]
+[connection signal="pressed" from="rule_container/validate_rule" to="." method="_on_validate_rule_pressed"]

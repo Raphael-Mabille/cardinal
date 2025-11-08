@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://uov7aqfp3fy7"]
+
+[ext_resource type="Script" path="res://scripts/confirm_box.gd" id="1_ga53j"]
+[ext_resource type="Texture2D" uid="uid://ctlw72fr086tc" path="res://assests/sprites/dos.png" id="2_43p2f"]
+
+[node name="confirm_box" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ga53j")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(175, 101)
+rotation = 1.5708
+texture = ExtResource("2_43p2f")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 19.0
+offset_right = 318.0
+offset_bottom = 103.0
+text = "test"
+autowrap_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 120.0
+offset_right = 180.0
+offset_bottom = 160.0
+theme_override_constants/separation = 20
+
+[node name="Button_1" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "test"
+
+[node name="Button_2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "test"
+
+[connection signal="pressed" from="HBoxContainer/Button_1" to="." method="_on_button_1_pressed"]
+[connection signal="pressed" from="HBoxContainer/Button_2" to="." method="_on_button_2_pressed"]

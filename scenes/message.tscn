@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=3 uid="uid://gjq7qx2twlwx"]
+
+[ext_resource type="Script" path="res://scripts/message.gd" id="1_11qlq"]
+[ext_resource type="Texture2D" uid="uid://ctlw72fr086tc" path="res://assests/sprites/dos.png" id="2_x5w8s"]
+
+[node name="display" type="Node2D"]
+script = ExtResource("1_11qlq")
+
+[node name="m_start" type="Marker2D" parent="."]
+
+[node name="m_end" type="Marker2D" parent="."]
+position = Vector2(270, 0)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+position = Vector2(133.596, 44)
+rotation = 1.5708
+scale = Vector2(0.322536, 0.689402)
+texture = ExtResource("2_x5w8s")
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 22.0
+offset_top = 4.0
+offset_right = 272.0
+offset_bottom = 72.0
+autowrap_mode = 2

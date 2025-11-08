@@ -21,8 +21,8 @@ func exists(query: String) -> Array:
 	var results := []
 	
 	query = query.to_lower()
-	var len := query.length()
-	var key := str(len)
+	var len_w := query.length()
+	var key := str(len_w)
 	if not index_by_length.has(key):
 		return results
 
@@ -30,7 +30,7 @@ func exists(query: String) -> Array:
 
 	for word in candidates:
 		var my_match := true
-		for i in len:
+		for i in len_w:
 			var qc := query[i]
 			if qc != '@' and qc != '`' and qc != word[i]:
 				my_match = false

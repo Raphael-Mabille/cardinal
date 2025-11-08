@@ -1,0 +1,153 @@
+[gd_scene load_steps=9 format=3 uid="uid://baglk8cbixlmr"]
+
+[ext_resource type="Script" path="res://scripts/game_selection.gd" id="1_7x6e8"]
+[ext_resource type="Texture2D" uid="uid://2gjj14efhi4h" path="res://assests/sprites/tapis.png" id="1_gk2da"]
+[ext_resource type="Texture2D" uid="uid://565cmbfifnfq" path="res://assests/sprites/C.png" id="1_injun"]
+[ext_resource type="Texture2D" uid="uid://7yh6gqed8s7e" path="res://assests/sprites/D.png" id="2_gk2da"]
+[ext_resource type="Texture2D" uid="uid://5fr6vqosfrol" path="res://assests/sprites/R.png" id="3_7x6e8"]
+[ext_resource type="Texture2D" uid="uid://clsfk7iy45dme" path="res://assests/sprites/presentation_jeu_cardinal_couverture.jpg" id="3_pjnf7"]
+[ext_resource type="PackedScene" uid="uid://gjq7qx2twlwx" path="res://scenes/message.tscn" id="6_kygqd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x6e8"]
+atlas = ExtResource("2_gk2da")
+region = Rect2(55.6423, 337.1, 58.3666, 53.3992)
+
+[node name="gameSelection" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_7x6e8")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = -852.0
+offset_top = -1078.0
+offset_right = 1983.0
+offset_bottom = 1757.0
+texture = ExtResource("1_gk2da")
+
+[node name="front" type="Sprite2D" parent="."]
+position = Vector2(939, 321)
+texture = ExtResource("3_pjnf7")
+
+[node name="BoxContainer" type="GridContainer" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 20.0
+offset_right = 992.667
+offset_bottom = 990.0
+scale = Vector2(0.6, 0.6)
+columns = 3
+
+[node name="CatomancieBt" type="TextureButton" parent="BoxContainer"]
+layout_mode = 2
+texture_normal = ExtResource("1_injun")
+
+[node name="TextureRect" type="TextureRect" parent="BoxContainer/CatomancieBt"]
+layout_mode = 0
+offset_left = 213.333
+offset_top = 331.667
+offset_right = 271.333
+offset_bottom = 406.667
+texture = SubResource("AtlasTexture_7x6e8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxContainer/CatomancieBt"]
+layout_mode = 0
+offset_left = 36.6667
+offset_top = 343.333
+offset_right = 250.0
+offset_bottom = 393.333
+theme_override_colors/default_color = Color(0.077875, 0.315617, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Cartomanie
+"
+
+[node name="ChapardageBt" type="TextureButton" parent="BoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+texture_normal = ExtResource("1_injun")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxContainer/ChapardageBt"]
+layout_mode = 0
+offset_left = 36.6667
+offset_top = 343.333
+offset_right = 250.0
+offset_bottom = 393.333
+theme_override_colors/default_color = Color(0.077875, 0.315617, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Chapardage
+"
+
+[node name="RéplikBt" type="TextureButton" parent="BoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+texture_normal = ExtResource("3_7x6e8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxContainer/RéplikBt"]
+layout_mode = 0
+offset_left = 90.6667
+offset_top = 343.333
+offset_right = 304.0
+offset_bottom = 393.333
+theme_override_colors/default_color = Color(0.077875, 0.315617, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Réplick"
+
+[node name="DilemeBt" type="TextureButton" parent="BoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+texture_normal = ExtResource("2_gk2da")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxContainer/DilemeBt"]
+layout_mode = 0
+offset_left = 79.3333
+offset_top = 345.0
+offset_right = 292.667
+offset_bottom = 395.0
+theme_override_colors/default_color = Color(0.077875, 0.315617, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Dilemme"
+
+[node name="CroiselettreBt" type="TextureButton" parent="BoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+texture_normal = ExtResource("1_injun")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxContainer/CroiselettreBt"]
+layout_mode = 0
+offset_left = 51.3333
+offset_top = 343.333
+offset_right = 264.667
+offset_bottom = 393.333
+theme_override_colors/default_color = Color(0.077875, 0.315617, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Croiselettre"
+
+[node name="RectoBt" type="TextureButton" parent="BoxContainer"]
+self_modulate = Color(1, 1, 1, 0.705882)
+layout_mode = 2
+texture_normal = ExtResource("3_7x6e8")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="BoxContainer/RectoBt"]
+layout_mode = 0
+offset_left = 99.9999
+offset_top = 345.0
+offset_right = 313.333
+offset_bottom = 395.0
+theme_override_colors/default_color = Color(0.077875, 0.315617, 1, 1)
+theme_override_font_sizes/normal_font_size = 32
+text = "Recto
+"
+
+[node name="display" parent="." instance=ExtResource("6_kygqd")]
+position = Vector2(-285, 550)
+
+[connection signal="pressed" from="BoxContainer/CatomancieBt" to="." method="_on_catomancie_bt_pressed"]
+[connection signal="pressed" from="BoxContainer/ChapardageBt" to="." method="_on_chapardage_bt_pressed"]
+[connection signal="pressed" from="BoxContainer/RéplikBt" to="." method="_on_réplik_bt_pressed"]
+[connection signal="pressed" from="BoxContainer/DilemeBt" to="." method="_on_dileme_bt_pressed"]
+[connection signal="pressed" from="BoxContainer/CroiselettreBt" to="." method="_on_croiselettre_bt_pressed"]
+[connection signal="pressed" from="BoxContainer/RectoBt" to="." method="_on_recto_bt_pressed"]

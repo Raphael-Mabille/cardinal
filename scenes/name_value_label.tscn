@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://dktnjpg0jga5i"]
+
+[ext_resource type="Script" path="res://scripts/name_value_label.gd" id="1_q8mr6"]
+
+[node name="Name_value_label" type="HBoxContainer"]
+offset_left = 97.0
+offset_right = 137.0
+offset_bottom = 40.0
+script = ExtResource("1_q8mr6")
+
+[node name="label_name" type="Label" parent="."]
+layout_mode = 2
+text = "test:"
+
+[node name="label_val" type="Label" parent="."]
+layout_mode = 2
+text = "100"
