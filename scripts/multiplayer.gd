@@ -33,16 +33,15 @@ func _ready():
 	multiplayer.server_disconnected.connect(_on_server_disconnected)
 
 
-func join_game(address = "", pName = ""):
+func join_game(address = "") -> int:
 	if address.is_empty():
 		address = DEFAULT_SERVER_IP
-	if not pName.is_empty():
-		player_info["name"] = pName
 	var peer = ENetMultiplayerPeer.new()
-	var error = peer.create_client(address, PORT)
+	var error : int = peer.create_client(address, PORT)
 	if error:
 		return error
 	multiplayer.multiplayer_peer = peer
+	return 0
 
 
 func create_game():

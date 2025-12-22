@@ -24,18 +24,26 @@ position = Vector2(-1921, 2)
 texture = ExtResource("1_e7xm2")
 
 [node name="front" type="Sprite2D" parent="."]
-position = Vector2(904, 321)
+position = Vector2(942, 322)
 texture = ExtResource("2_76hm7")
 
-[node name="menu_buttons" type="VBoxContainer" parent="."]
+[node name="menu_parametters" type="VBoxContainer" parent="."]
 layout_mode = 0
-offset_left = 169.0
-offset_top = 129.0
-offset_right = 438.0
-offset_bottom = 521.0
+offset_left = 100.0
+offset_top = 100.0
+offset_right = 369.0
+offset_bottom = 492.0
 
-[node name="Difficulty_settings" type="OptionButton" parent="menu_buttons"]
-visible = false
+[node name="le_player_name" type="LineEdit" parent="menu_parametters"]
+layout_mode = 2
+placeholder_text = "Entrer votre nom"
+
+[node name="diff_spearator" type="ColorRect" parent="menu_parametters"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="Difficulty_settings" type="OptionButton" parent="menu_parametters"]
 layout_mode = 2
 selected = 0
 item_count = 3
@@ -45,10 +53,106 @@ popup/item_1/id = 1
 popup/item_2/text = "Expert"
 popup/item_2/id = 2
 
-[node name="diff_spearator" type="ColorRect" parent="menu_buttons"]
+[node name="menu_buttons" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 400.0
+offset_top = 100.0
+offset_right = 669.0
+offset_bottom = 492.0
+
+[node name="vbox_root" type="VBoxContainer" parent="menu_buttons"]
 visible = false
+layout_mode = 2
+
+[node name="bt_solo" type="Button" parent="menu_buttons/vbox_root"]
+layout_mode = 2
+text = "Jouer seul"
+
+[node name="bt_multiplayer" type="Button" parent="menu_buttons/vbox_root"]
+layout_mode = 2
+text = "Jouer en multijoueurs"
+
+[node name="vbox_multiplayer" type="VBoxContainer" parent="menu_buttons"]
+visible = false
+layout_mode = 2
+
+[node name="bt_create_lobby" type="Button" parent="menu_buttons/vbox_multiplayer"]
+layout_mode = 2
+text = "créer une partie en ligne"
+
+[node name="bt_join_lobby" type="Button" parent="menu_buttons/vbox_multiplayer"]
+layout_mode = 2
+text = "rejoindre une partie en ligne"
+
+[node name="bt_local_mp" type="Button" parent="menu_buttons/vbox_multiplayer"]
+layout_mode = 2
+text = "créer une partie en local"
+
+[node name="vbox_create_lobby" type="VBoxContainer" parent="menu_buttons"]
+visible = false
+layout_mode = 2
+
+[node name="la_player_waiting" type="Label" parent="menu_buttons/vbox_create_lobby"]
+layout_mode = 2
+text = "Joueurs en attente :"
+
+[node name="la_you" type="Label" parent="menu_buttons/vbox_create_lobby"]
+layout_mode = 2
+text = "     - vous"
+
+[node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_create_lobby"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 color = Color(1, 1, 1, 0)
 
-[connection signal="item_selected" from="menu_buttons/Difficulty_settings" to="." method="_on_difficulty_settings_item_selected"]
+[node name="bt_start_game_mp" type="Button" parent="menu_buttons/vbox_create_lobby"]
+layout_mode = 2
+text = "commencer la partie"
+
+[node name="vbox_join_lobby" type="VBoxContainer" parent="menu_buttons"]
+visible = false
+layout_mode = 2
+
+[node name="le_ip_adress" type="LineEdit" parent="menu_buttons/vbox_join_lobby"]
+layout_mode = 2
+placeholder_text = "adresse ipv4 de l'hôte de la partie"
+
+[node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_join_lobby"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="bt_join_game" type="Button" parent="menu_buttons/vbox_join_lobby"]
+layout_mode = 2
+text = "se connecter à la partie"
+
+[node name="vbox_singleplayer" type="VBoxContainer" parent="menu_buttons"]
+visible = false
+layout_mode = 2
+
+[node name="bt_start_game_mp" type="Button" parent="menu_buttons/vbox_singleplayer"]
+layout_mode = 2
+text = "commencer la partie"
+
+[node name="spearator" type="ColorRect" parent="menu_buttons"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="bt_back" type="Button" parent="menu_buttons"]
+layout_mode = 2
+disabled = true
+text = "retour"
+
+[connection signal="ready" from="." to="." method="_on_ready"]
+[connection signal="text_changed" from="menu_parametters/le_player_name" to="." method="_on_le_player_name_text_changed"]
+[connection signal="item_selected" from="menu_parametters/Difficulty_settings" to="." method="_on_difficulty_settings_item_selected"]
+[connection signal="pressed" from="menu_buttons/vbox_root/bt_solo" to="." method="_on_bt_solo_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_root/bt_multiplayer" to="." method="_on_bt_multiplayer_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_create_lobby" to="." method="_on_bt_create_lobby_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_join_lobby" to="." method="_on_bt_join_lobby_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_create_lobby/bt_start_game_mp" to="." method="_on_bt_start_game_mp_pressed"]
+[connection signal="text_changed" from="menu_buttons/vbox_join_lobby/le_ip_adress" to="." method="_on_le_ip_adress_text_changed"]
+[connection signal="pressed" from="menu_buttons/vbox_join_lobby/bt_join_game" to="." method="_on_bt_join_game_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_singleplayer/bt_start_game_mp" to="." method="_on_bt_start_game_mp_pressed"]
+[connection signal="pressed" from="menu_buttons/bt_back" to="." method="_on_bt_back_pressed"]

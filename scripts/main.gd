@@ -160,8 +160,8 @@ func endgame(force : bool, msg : String):
 
 @rpc("any_peer", "call_local", "reliable")
 func endGameConditionCheck() -> void:
-	if minLeft == 0:
-		endgame(true, "Il n'y a plus aucune minuscule dans le paquet")
+	if majLeft == 0:
+		endgame(true, "Il n'y a plus aucune majuscule dans le paquet")
 
 func checkCapital() -> void:
 	var upper := false

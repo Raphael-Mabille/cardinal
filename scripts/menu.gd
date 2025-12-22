@@ -1,145 +1,96 @@
 extends Control
 
-@onready var menu_buttons: VBoxContainer = $menu_buttons
-@onready var difficulty_settings: OptionButton = $menu_buttons/Difficulty_settings
-@onready var diff_spearator: ColorRect = $menu_buttons/diff_spearator
+@onready var bt_back: Button = $menu_buttons/bt_back
 
-var soloBt = Button.new()
-var multiplayerBt = Button.new()
-var backBt = Button.new()
-var localBt = CheckButton.new()
-var onlineBt = Button.new()
-var createLobbyBt = Button.new()
-var joinLobbyBt = Button.new()
-var startGameBt = Button.new()
-var startSoloGameBt = Button.new()
+#--------------------------- VBoxs ---------------------------#
+@onready var vbox_root: VBoxContainer = $menu_buttons/vbox_root
+@onready var vbox_multiplayer: VBoxContainer = $menu_buttons/vbox_multiplayer
+@onready var vbox_singleplayer: VBoxContainer = $menu_buttons/vbox_singleplayer
+@onready var vbox_create_lobby: VBoxContainer = $menu_buttons/vbox_create_lobby
+@onready var vbox_join_lobby: VBoxContainer = $menu_buttons/vbox_join_lobby
+@onready var la_you: Label = $menu_buttons/vbox_create_lobby/la_you
 
-var addressInput = LineEdit.new()
-var nameInput = LineEdit.new()
+#-------------------------------------------------------------#
 
-var gap = ColorRect.new()
 
-var local : bool = true
+func _on_ready() -> void:
+	setCurrent(vbox_root)
+
 var adress : String = "127.0.0.1"
-var pName : String = "player"
 
-var curr_bt = []
-var prev_bt = []
+var peer_id_list = [1]
 
-func createBt(bt : Button, btName : String, function, hiden : bool) -> void:
-	bt.text = btName
-	if function :
-		bt.pressed.connect(function)
-	menu_buttons.add_child(bt)
-	if hiden:
-		bt.hide()
+#---------------------- button navigation --------------------#
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	createBt(soloBt, "Jouer seul", play_solo, false)
-	createBt(multiplayerBt, "Jouer en multijoueurs", play_multiplayer, false)
-	showbt(soloBt)
-	showbt(multiplayerBt)
-	multiplayerBt.disabled = true
+var history : Array[VBoxContainer] = []
 
-	nameInput.text_changed.connect(modifyName)
-	nameInput.alignment = HORIZONTAL_ALIGNMENT_CENTER
-	nameInput.placeholder_text = "Entrer votre nom"
-	menu_buttons.add_child(nameInput)
-	nameInput.hide()
-	
-	createBt(onlineBt, "en ligne", play_solo, true)
-	createBt(createLobbyBt, "créer une partie", createLobby, true)
-	createBt(joinLobbyBt, "rejoindre une partie", joinLobby, true)
-	createBt(startGameBt, "commencer la partie", startGame, true)
-	createBt(startSoloGameBt, "commencer la partie", startSoloGame, true)
+func setCurrent(box : VBoxContainer) -> void :
+	if not history.is_empty() :
+		history[0].hide()
+		bt_back.disabled = false
+	box.show()
+	history.push_front(box)
 
-	createBt(localBt, "local", localTg, true)
-	
-	gap.color = Color(0, 0, 0, 0)
-	gap.custom_minimum_size = Vector2(10, 10)
-	menu_buttons.add_child(gap)
-	
-	createBt(backBt, "retour", goBack, true)
-	
-	addressInput.text_changed.connect(modifyAdress)
-	addressInput.placeholder_text = "127.0.0.1"
-	menu_buttons.add_child(addressInput)
-	addressInput.hide()
+func _on_bt_back_pressed() -> void:
+	history.pop_front().hide()
+	history[0].show()
 
-func modifyName(newName) -> void:
-	pName = newName
+	if history.size() <= 1 :
+		bt_back.disabled = true
 
-func modifyAdress(newAdress) -> void:
-	adress = newAdress
-
-func startGame() -> void:
-	Transition.change_scene_multiplayer(pName)
-
-func _process(_delta) -> void:
-	pass
-
-func printBt() -> void:
-	print("current :")
-	for bt in curr_bt:
-		print(bt.text)
-	print("prev :")
-	for bt in prev_bt:
-		print(bt.text)
-
-func goBack() -> void:
-	for bt in prev_bt:
-		bt.show()
-	for bt in curr_bt:
-		bt.hide()
-	var temp = prev_bt.duplicate()
-	prev_bt = curr_bt.duplicate()
-	curr_bt = temp.duplicate()
-
-func localTg() -> void:
-	local = not local
-
-func swapCurrent() -> void:
-	prev_bt.clear()
-	prev_bt = curr_bt.duplicate()
-	for bt in curr_bt:
-		bt.hide()
-	curr_bt.clear()
-
-func showbt(bt) -> void:
-	bt.show()
-	curr_bt.append(bt)
-
-
-func startSoloGame() -> void:
-	Lobby.create_game()
-	Transition.change_scene_multiplayer(pName)
-
-func play_solo() -> void:
-	swapCurrent()
-	showbt(nameInput)
-	showbt(startSoloGameBt)
-	showbt(backBt)
-	showbt(gap)
-	showbt(difficulty_settings)
-	showbt(diff_spearator)
-
-func play_multiplayer() -> void:
-	swapCurrent()
-	showbt(createLobbyBt)
-	showbt(joinLobbyBt)
-	showbt(localBt)
-	showbt(backBt)
-	showbt(addressInput)
-	showbt(nameInput)
-
-func createLobby() -> void:
-	Lobby.create_game()
-	showbt(startGameBt)
-	
-func joinLobby() -> void:
-	Lobby.join_game(adress, pName)
-
+#-------------------------------------------------------------#
 
 func _on_difficulty_settings_item_selected(index: int) -> void:
 	Global.difficulty = index as Global.Difficulty
+
+
+#-------------------- buttons events -------------------------#
+
+func _on_bt_solo_pressed() -> void:
+	setCurrent(vbox_singleplayer)
+
+func _on_bt_multiplayer_pressed() -> void:
+	setCurrent(vbox_multiplayer)
+
+func _on_bt_start_game_mp_pressed() -> void:
+	Transition.change_scene_multiplayer(Lobby.player_info.name)
+
+func _on_le_player_name_text_changed(new_text: String) -> void:
+	Lobby.player_info.name = new_text
+	la_you.text = "    - " + new_text
+
+func add_player_name_to_ui(p_name) -> void:
+	var new_label = Label.new()
+	new_label.text = "    - " + p_name
+	la_you.add_sibling(new_label)
+
+
+func add_player_name(peer_id, player_info) -> void:
+	if peer_id_list.find(peer_id) == -1 :
+		peer_id_list.append(peer_id)
+		add_player_name_to_ui(player_info.name)
+
+
+func _on_bt_create_lobby_pressed() -> void:
+	Lobby.player_connected.connect(add_player_name)
+	Lobby.create_game()
+	setCurrent(vbox_create_lobby)
+
+
+func _on_bt_join_lobby_pressed() -> void:
+	setCurrent(vbox_join_lobby)
+
+
+func _on_le_ip_adress_text_changed(new_text: String) -> void:
+	adress = new_text
+
+
+func player_connect(a, b) -> void:
+	print("peer_id, player_info", a, b)
+
+func _on_bt_join_game_pressed() -> void:
+	Lobby.player_connected.connect(player_connect)
+	var error = Lobby.join_game(adress)
+	print("error : ", error)
+
+#-------------------------------------------------------------#
