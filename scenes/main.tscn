@@ -211,6 +211,7 @@ position = Vector2(242, 120)
 visible = false
 
 [node name="rule_container" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 

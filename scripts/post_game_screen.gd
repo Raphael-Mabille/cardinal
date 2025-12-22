@@ -40,4 +40,6 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _on_button_pressed() -> void:
+	Lobby.stop_game()
+	Global.difficulty = Global.Difficulty.EASY
 	Transition.change_scene(GAME_SELECTION)

@@ -112,3 +112,8 @@ func _on_server_disconnected():
 	remove_multiplayer_peer()
 	players.clear()
 	server_disconnected.emit()
+
+func stop_game():
+	if multiplayer.multiplayer_peer:
+		multiplayer.multiplayer_peer.close()
+	remove_multiplayer_peer()

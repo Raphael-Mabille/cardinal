@@ -1,5 +1,8 @@
 extends Control
+
 @onready var menu_buttons: VBoxContainer = $menu_buttons
+@onready var difficulty_settings: OptionButton = $menu_buttons/Difficulty_settings
+@onready var diff_spearator: ColorRect = $menu_buttons/diff_spearator
 
 var soloBt = Button.new()
 var multiplayerBt = Button.new()
@@ -118,6 +121,8 @@ func play_solo() -> void:
 	showbt(startSoloGameBt)
 	showbt(backBt)
 	showbt(gap)
+	showbt(difficulty_settings)
+	showbt(diff_spearator)
 
 func play_multiplayer() -> void:
 	swapCurrent()
@@ -134,3 +139,7 @@ func createLobby() -> void:
 	
 func joinLobby() -> void:
 	Lobby.join_game(adress, pName)
+
+
+func _on_difficulty_settings_item_selected(index: int) -> void:
+	Global.difficulty = index as Global.Difficulty

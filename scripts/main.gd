@@ -28,7 +28,7 @@ var deck_color: int = 0
 var card_to_turn = 0
 var letter_pool: Array = []
 var current: Array = []
-var difficulty: String = "easy"
+var difficulty := Global.difficulty
 var cardLeftInDeck: int = 0
 var currentWord: String = ""
 var space_x := 70
@@ -54,13 +54,13 @@ var cardNumber = {
 }
 
 var difficultyName = {
-	"easy": "débutant",
-	"medium": "confirmé",
-	"hard": "expert"
+	Global.Difficulty.EASY : "débutant",
+	Global.Difficulty.MEDIUM : "confirmé",
+	Global.Difficulty.HARD : "expert"
 }
 
 var cardDistribution = {
-	"easy" : [
+	Global.Difficulty.EASY : [
 		{"letters": "ae", "quantity": 9},
 		{"letters": "iou", "quantity": 5},
 		{"letters": "lnrst", "quantity": 4},
@@ -68,7 +68,7 @@ var cardDistribution = {
 		{"letters": "@", "quantity": 8},
 		{"letters": "AERTIOPSDFGHJLMCVBN`", "quantity": 1}
 	],
-	"medium" : [
+	Global.Difficulty.MEDIUM : [
 		{"letters": "ae", "quantity": 10 },
 		{"letters": "iou", "quantity": 6},
 		{"letters": "lnrst", "quantity": 4},
@@ -77,7 +77,7 @@ var cardDistribution = {
 		{"letters": "@", "quantity": 8},
 		{"letters": "AERTIOPSDFGHJLMCVBNKQUZ`", "quantity": 1}
 	],
-	"hard" : [
+	Global.Difficulty.HARD : [
 		{"letters": "ae", "quantity": 11 },
 		{"letters": "iou", "quantity": 7},
 		{"letters": "lnrst", "quantity": 4},

@@ -33,3 +33,22 @@ offset_left = 169.0
 offset_top = 129.0
 offset_right = 438.0
 offset_bottom = 521.0
+
+[node name="Difficulty_settings" type="OptionButton" parent="menu_buttons"]
+visible = false
+layout_mode = 2
+selected = 0
+item_count = 3
+popup/item_0/text = "Débutant"
+popup/item_1/text = "Confirmé"
+popup/item_1/id = 1
+popup/item_2/text = "Expert"
+popup/item_2/id = 2
+
+[node name="diff_spearator" type="ColorRect" parent="menu_buttons"]
+visible = false
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[connection signal="item_selected" from="menu_buttons/Difficulty_settings" to="." method="_on_difficulty_settings_item_selected"]
