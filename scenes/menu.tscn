@@ -1,8 +1,171 @@
-[gd_scene load_steps=4 format=3 uid="uid://cxm0drsbde21d"]
+[gd_scene load_steps=28 format=3 uid="uid://cxm0drsbde21d"]
 
 [ext_resource type="Texture2D" uid="uid://c6mnutbk5obyj" path="res://assests/sprites/bg_cover.png" id="1_e7xm2"]
 [ext_resource type="Script" path="res://scripts/menu.gd" id="1_jnlx4"]
 [ext_resource type="Texture2D" uid="uid://clsfk7iy45dme" path="res://assests/sprites/presentation_jeu_cardinal_couverture.jpg" id="2_76hm7"]
+[ext_resource type="Texture2D" uid="uid://biwtst8glr4o7" path="res://assests/sprites/loading-cardinal-0001.png" id="4_h8qxu"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ir8x4"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(0, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jd5r5"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(101, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2slek"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(202, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycx4q"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(303, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1714"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(404, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vffv8"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(505, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3pqx6"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(606, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4v3mo"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(707, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_61ilc"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(808, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pww5c"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(909, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mcjmo"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1010, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_474wm"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1111, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7jtt"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1212, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xkaek"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1313, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_esfc8"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1414, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yam5n"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1515, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_na4fj"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1616, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75jf5"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1717, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ici0c"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1818, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1py62"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(1919, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wrtq"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(2020, 0, 100, 100)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_drlk8"]
+atlas = ExtResource("4_h8qxu")
+region = Rect2(2121, 0, 100, 100)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_s0f8o"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ir8x4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jd5r5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2slek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycx4q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1714")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vffv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3pqx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4v3mo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_61ilc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pww5c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mcjmo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_474wm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7jtt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xkaek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_esfc8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yam5n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_na4fj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75jf5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ici0c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1py62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wrtq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_drlk8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
 
 [node name="menu" type="Control"]
 layout_mode = 3
@@ -126,6 +289,24 @@ color = Color(1, 1, 1, 0)
 layout_mode = 2
 text = "se connecter à la partie"
 
+[node name="as_loading" type="AnimatedSprite2D" parent="menu_buttons/vbox_join_lobby"]
+visible = false
+position = Vector2(132, 126)
+rotation = 1.5708
+scale = Vector2(0.56, 0.56)
+sprite_frames = SubResource("SpriteFrames_s0f8o")
+
+[node name="cr_separator_2" type="ColorRect" parent="menu_buttons/vbox_join_lobby"]
+visible = false
+custom_minimum_size = Vector2(0, 80)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="bt_cancel_join" type="Button" parent="menu_buttons/vbox_join_lobby"]
+visible = false
+layout_mode = 2
+text = "annuler"
+
 [node name="vbox_singleplayer" type="VBoxContainer" parent="menu_buttons"]
 visible = false
 layout_mode = 2
@@ -154,5 +335,6 @@ text = "retour"
 [connection signal="pressed" from="menu_buttons/vbox_create_lobby/bt_start_game_mp" to="." method="_on_bt_start_game_mp_pressed"]
 [connection signal="text_changed" from="menu_buttons/vbox_join_lobby/le_ip_adress" to="." method="_on_le_ip_adress_text_changed"]
 [connection signal="pressed" from="menu_buttons/vbox_join_lobby/bt_join_game" to="." method="_on_bt_join_game_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_join_lobby/bt_cancel_join" to="." method="_on_bt_cancel_join_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_singleplayer/bt_start_game_mp" to="." method="_on_bt_start_game_mp_pressed"]
 [connection signal="pressed" from="menu_buttons/bt_back" to="." method="_on_bt_back_pressed"]
