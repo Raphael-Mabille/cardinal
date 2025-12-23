@@ -315,7 +315,24 @@ layout_mode = 2
 layout_mode = 2
 text = "commencer la partie"
 
-[node name="spearator" type="ColorRect" parent="menu_buttons"]
+[node name="vbox_in_remote_lobby" type="VBoxContainer" parent="menu_buttons"]
+visible = false
+layout_mode = 2
+
+[node name="la_lobby_host" type="Label" parent="menu_buttons/vbox_in_remote_lobby"]
+layout_mode = 2
+text = "Connecté à la partie de :"
+
+[node name="la_lobby_host_name" type="Label" parent="menu_buttons/vbox_in_remote_lobby"]
+layout_mode = 2
+text = "test"
+
+[node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_in_remote_lobby"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="cr_separator" type="ColorRect" parent="menu_buttons"]
 custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
 color = Color(1, 1, 1, 0)
