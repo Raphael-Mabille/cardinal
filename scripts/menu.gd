@@ -1,8 +1,6 @@
 extends Control
 
-@onready var bt_back: Button = $menu_buttons/bt_back
-
-#--------------------------- VBoxs ---------------------------#
+#----------------------------------- VBoxs -----------------------------------#
 @onready var vbox_root: VBoxContainer = $menu_buttons/vbox_root
 @onready var vbox_multiplayer: VBoxContainer = $menu_buttons/vbox_multiplayer
 @onready var vbox_singleplayer: VBoxContainer = $menu_buttons/vbox_singleplayer
@@ -10,7 +8,8 @@ extends Control
 @onready var vbox_join_lobby: VBoxContainer = $menu_buttons/vbox_join_lobby
 @onready var la_you: Label = $menu_buttons/vbox_create_lobby/la_you
 @onready var vbox_in_remote_lobby: VBoxContainer = $menu_buttons/vbox_in_remote_lobby
-#-------------------------------------------------------------#
+@onready var vbox_local_multiplayer: VBoxContainer = $menu_buttons/vbox_local_multiplayer
+#-----------------------------------------------------------------------------#
 
 enum State {
 	DISCONNECTED,
@@ -25,11 +24,17 @@ var adress : String = "127.0.0.1"
 
 var peer_id_list = [1]
 
+var player_number = 1
+
+var player_names = ["", "", ""]
+
 func _on_ready() -> void:
 	setCurrent(vbox_root)
 
 
-#---------------------- button navigation --------------------#
+#---------------------------- button navigation ------------------------------#
+
+@onready var bt_back: Button = $menu_buttons/bt_back
 
 var history : Array[VBoxContainer] = []
 
@@ -61,26 +66,37 @@ func _on_bt_back_pressed() -> void:
 	elif state == State.CONNECTED :
 		disconect_from_server()
 
-#-------------------------------------------------------------#
+#-------------------------------- side menu ----------------------------------#
 
 func _on_difficulty_settings_item_selected(index: int) -> void:
 	Global.difficulty = index as Global.Difficulty
 
+func _on_le_player_name_text_changed(new_text: String) -> void:
+	Lobby.player_info.name = new_text
+	la_you.text = "    - " + new_text
 
-#-------------------- buttons events -------------------------#
+#----------------------------------- solo ------------------------------------#
 
 func _on_bt_solo_pressed() -> void:
 	setCurrent(vbox_singleplayer)
+
+func _on_bt_start_game_sp_pressed() -> void:
+	Lobby.create_game()
+	Transition.change_scene_multiplayer(Lobby.player_info.name)
+
+
+#------------------------------- multiplayer ---------------------------------#
+
+@onready var as_loading: AnimatedSprite2D = $menu_buttons/vbox_join_lobby/as_loading
+@onready var cr_separator_2: ColorRect = $menu_buttons/vbox_join_lobby/cr_separator_2
+@onready var bt_cancel_join: Button = $menu_buttons/vbox_join_lobby/bt_cancel_join
+@onready var la_lobby_host_name: Label = $menu_buttons/vbox_in_remote_lobby/la_lobby_host_name
 
 func _on_bt_multiplayer_pressed() -> void:
 	setCurrent(vbox_multiplayer)
 
 func _on_bt_start_game_mp_pressed() -> void:
 	Transition.change_scene_multiplayer(Lobby.player_info.name)
-
-func _on_le_player_name_text_changed(new_text: String) -> void:
-	Lobby.player_info.name = new_text
-	la_you.text = "    - " + new_text
 
 func add_player_name_to_ui(p_name) -> void:
 	var new_label = Label.new()
@@ -109,19 +125,11 @@ func _on_bt_create_lobby_pressed() -> void:
 	setCurrent(vbox_create_lobby)
 	state = State.LOBBY_CREATOR
 
-
 func _on_bt_join_lobby_pressed() -> void:
 	setCurrent(vbox_join_lobby)
 
-
 func _on_le_ip_adress_text_changed(new_text: String) -> void:
 	adress = new_text
-
-
-@onready var as_loading: AnimatedSprite2D = $menu_buttons/vbox_join_lobby/as_loading
-@onready var cr_separator_2: ColorRect = $menu_buttons/vbox_join_lobby/cr_separator_2
-@onready var bt_cancel_join: Button = $menu_buttons/vbox_join_lobby/bt_cancel_join
-@onready var la_lobby_host_name: Label = $menu_buttons/vbox_in_remote_lobby/la_lobby_host_name
 
 func reset_connection_ui() -> void:
 	as_loading.hide()
@@ -159,9 +167,50 @@ func disconect_from_server() -> void:
 	Lobby.remove_multiplayer_peer()
 	Lobby.player_connected.disconnect(add_host_name_ui)
 	Lobby.player_disconnected.disconnect(game_canceled)
-	
+
 func _on_bt_cancel_join_pressed() -> void:
 	disconect_from_server()
 	reset_connection_ui()
 
-#-------------------------------------------------------------#
+#--------------------------- local multiplayer -------------------------------#
+
+@onready var le_player_2_name: LineEdit = $menu_buttons/vbox_local_multiplayer/le_player_2_name
+@onready var le_player_3_name: LineEdit = $menu_buttons/vbox_local_multiplayer/le_player_3_name
+@onready var le_player_4_name: LineEdit = $menu_buttons/vbox_local_multiplayer/le_player_4_name
+
+func _on_bt_local_mp_pressed() -> void:
+	setCurrent(vbox_local_multiplayer)
+
+func _on_spin_box_value_changed(value: float) -> void:
+	var int_val := int(value)
+	player_number = int(value)
+	if (int_val == 1) :
+		le_player_2_name.hide()
+		le_player_3_name.hide()
+		le_player_4_name.hide()
+	if (int_val == 2) :
+		le_player_2_name.show()
+		le_player_3_name.hide()
+		le_player_4_name.hide()
+	if (int_val == 3) :
+		le_player_2_name.show()
+		le_player_3_name.show()
+		le_player_4_name.hide()
+	if (int_val == 4) :
+		le_player_2_name.show()
+		le_player_3_name.show()
+		le_player_4_name.show()
+
+func _on_bt_start_local_game_pressed() -> void:
+	pass # TODO
+
+func _on_le_player_2_name_text_changed(new_text: String) -> void:
+	player_names[0] = new_text
+
+func _on_le_player_3_name_text_changed(new_text: String) -> void:
+	player_names[1] = new_text
+
+func _on_le_player_4_name_text_changed(new_text: String) -> void:
+	player_names[2] = new_text
+
+#-----------------------------------------------------------------------------#

@@ -1,7 +1,7 @@
 [gd_scene load_steps=28 format=3 uid="uid://cxm0drsbde21d"]
 
 [ext_resource type="Texture2D" uid="uid://c6mnutbk5obyj" path="res://assests/sprites/bg_cover.png" id="1_e7xm2"]
-[ext_resource type="Script" path="res://scripts/menu.gd" id="1_jnlx4"]
+[ext_resource type="Script" uid="uid://dbtwhwpp1gl0s" path="res://scripts/menu.gd" id="1_jnlx4"]
 [ext_resource type="Texture2D" uid="uid://clsfk7iy45dme" path="res://assests/sprites/presentation_jeu_cardinal_couverture.jpg" id="2_76hm7"]
 [ext_resource type="Texture2D" uid="uid://biwtst8glr4o7" path="res://assests/sprites/loading-cardinal-0001.png" id="4_h8qxu"]
 
@@ -211,6 +211,7 @@ layout_mode = 2
 selected = 0
 item_count = 3
 popup/item_0/text = "Débutant"
+popup/item_0/id = 0
 popup/item_1/text = "Confirmé"
 popup/item_1/id = 1
 popup/item_2/text = "Expert"
@@ -247,9 +248,51 @@ text = "créer une partie en ligne"
 layout_mode = 2
 text = "rejoindre une partie en ligne"
 
+[node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_multiplayer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
 [node name="bt_local_mp" type="Button" parent="menu_buttons/vbox_multiplayer"]
 layout_mode = 2
 text = "créer une partie en local"
+
+[node name="vbox_local_multiplayer" type="VBoxContainer" parent="menu_buttons"]
+visible = false
+layout_mode = 2
+
+[node name="SpinBox" type="SpinBox" parent="menu_buttons/vbox_local_multiplayer"]
+layout_mode = 2
+min_value = 1.0
+max_value = 4.0
+value = 1.0
+rounded = true
+update_on_text_changed = true
+prefix = "nombre de joueurs :"
+
+[node name="le_player_2_name" type="LineEdit" parent="menu_buttons/vbox_local_multiplayer"]
+visible = false
+layout_mode = 2
+placeholder_text = "nom joueur 2"
+
+[node name="le_player_3_name" type="LineEdit" parent="menu_buttons/vbox_local_multiplayer"]
+visible = false
+layout_mode = 2
+placeholder_text = "nom joueur 3"
+
+[node name="le_player_4_name" type="LineEdit" parent="menu_buttons/vbox_local_multiplayer"]
+visible = false
+layout_mode = 2
+placeholder_text = "nom joueur 4"
+
+[node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_local_multiplayer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
+
+[node name="bt_start_local_game" type="Button" parent="menu_buttons/vbox_local_multiplayer"]
+layout_mode = 2
+text = "commencer la partie"
 
 [node name="vbox_create_lobby" type="VBoxContainer" parent="menu_buttons"]
 visible = false
@@ -311,7 +354,7 @@ text = "annuler"
 visible = false
 layout_mode = 2
 
-[node name="bt_start_game_mp" type="Button" parent="menu_buttons/vbox_singleplayer"]
+[node name="bt_start_game_sp" type="Button" parent="menu_buttons/vbox_singleplayer"]
 layout_mode = 2
 text = "commencer la partie"
 
@@ -349,9 +392,15 @@ text = "retour"
 [connection signal="pressed" from="menu_buttons/vbox_root/bt_multiplayer" to="." method="_on_bt_multiplayer_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_create_lobby" to="." method="_on_bt_create_lobby_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_join_lobby" to="." method="_on_bt_join_lobby_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_local_mp" to="." method="_on_bt_local_mp_pressed"]
+[connection signal="value_changed" from="menu_buttons/vbox_local_multiplayer/SpinBox" to="." method="_on_spin_box_value_changed"]
+[connection signal="text_changed" from="menu_buttons/vbox_local_multiplayer/le_player_2_name" to="." method="_on_le_player_2_name_text_changed"]
+[connection signal="text_changed" from="menu_buttons/vbox_local_multiplayer/le_player_3_name" to="." method="_on_le_player_3_name_text_changed"]
+[connection signal="text_changed" from="menu_buttons/vbox_local_multiplayer/le_player_4_name" to="." method="_on_le_player_4_name_text_changed"]
+[connection signal="pressed" from="menu_buttons/vbox_local_multiplayer/bt_start_local_game" to="." method="_on_bt_start_local_game_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_create_lobby/bt_start_game_mp" to="." method="_on_bt_start_game_mp_pressed"]
 [connection signal="text_changed" from="menu_buttons/vbox_join_lobby/le_ip_adress" to="." method="_on_le_ip_adress_text_changed"]
 [connection signal="pressed" from="menu_buttons/vbox_join_lobby/bt_join_game" to="." method="_on_bt_join_game_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_join_lobby/bt_cancel_join" to="." method="_on_bt_cancel_join_pressed"]
-[connection signal="pressed" from="menu_buttons/vbox_singleplayer/bt_start_game_mp" to="." method="_on_bt_start_game_mp_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_singleplayer/bt_start_game_sp" to="." method="_on_bt_start_game_sp_pressed"]
 [connection signal="pressed" from="menu_buttons/bt_back" to="." method="_on_bt_back_pressed"]
