@@ -237,15 +237,30 @@ layout_mode = 2
 text = "Jouer en multijoueurs"
 
 [node name="vbox_multiplayer" type="VBoxContainer" parent="menu_buttons"]
-visible = false
 layout_mode = 2
+
+[node name="bt_connect_to_server" type="Button" parent="menu_buttons/vbox_multiplayer"]
+layout_mode = 2
+text = "se connecter au serveur"
+
+[node name="bt_disconnect_from_server" type="Button" parent="menu_buttons/vbox_multiplayer"]
+layout_mode = 2
+disabled = true
+text = "se deconnecter du serveur"
+
+[node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_multiplayer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+color = Color(1, 1, 1, 0)
 
 [node name="bt_create_lobby" type="Button" parent="menu_buttons/vbox_multiplayer"]
 layout_mode = 2
+disabled = true
 text = "créer une partie en ligne"
 
 [node name="bt_join_lobby" type="Button" parent="menu_buttons/vbox_multiplayer"]
 layout_mode = 2
+disabled = true
 text = "rejoindre une partie en ligne"
 
 [node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_multiplayer"]
@@ -254,6 +269,7 @@ layout_mode = 2
 color = Color(1, 1, 1, 0)
 
 [node name="bt_local_mp" type="Button" parent="menu_buttons/vbox_multiplayer"]
+visible = false
 layout_mode = 2
 text = "créer une partie en local"
 
@@ -319,9 +335,9 @@ text = "commencer la partie"
 visible = false
 layout_mode = 2
 
-[node name="le_ip_adress" type="LineEdit" parent="menu_buttons/vbox_join_lobby"]
+[node name="le_room_code" type="LineEdit" parent="menu_buttons/vbox_join_lobby"]
 layout_mode = 2
-placeholder_text = "adresse ipv4 de l'hôte de la partie"
+placeholder_text = "code de la partie"
 
 [node name="cr_separator" type="ColorRect" parent="menu_buttons/vbox_join_lobby"]
 custom_minimum_size = Vector2(0, 10)
@@ -385,11 +401,28 @@ layout_mode = 2
 disabled = true
 text = "retour"
 
+[node name="la_status_display" type="Label" parent="."]
+layout_mode = 0
+offset_left = 399.0
+offset_top = 56.0
+offset_right = 439.0
+offset_bottom = 79.0
+
+[node name="la_log_display" type="Label" parent="."]
+layout_mode = 0
+offset_left = 101.0
+offset_top = 225.0
+offset_right = 378.0
+offset_bottom = 248.0
+autowrap_mode = 3
+
 [connection signal="ready" from="." to="." method="_on_ready"]
 [connection signal="text_changed" from="menu_parametters/le_player_name" to="." method="_on_le_player_name_text_changed"]
 [connection signal="item_selected" from="menu_parametters/Difficulty_settings" to="." method="_on_difficulty_settings_item_selected"]
 [connection signal="pressed" from="menu_buttons/vbox_root/bt_solo" to="." method="_on_bt_solo_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_root/bt_multiplayer" to="." method="_on_bt_multiplayer_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_connect_to_server" to="." method="_on_bt_connect_to_server_pressed"]
+[connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_disconnect_from_server" to="." method="_on_bt_disconnect_from_server_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_create_lobby" to="." method="_on_bt_create_lobby_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_join_lobby" to="." method="_on_bt_join_lobby_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_multiplayer/bt_local_mp" to="." method="_on_bt_local_mp_pressed"]
@@ -399,7 +432,7 @@ text = "retour"
 [connection signal="text_changed" from="menu_buttons/vbox_local_multiplayer/le_player_4_name" to="." method="_on_le_player_4_name_text_changed"]
 [connection signal="pressed" from="menu_buttons/vbox_local_multiplayer/bt_start_local_game" to="." method="_on_bt_start_local_game_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_create_lobby/bt_start_game_mp" to="." method="_on_bt_start_game_mp_pressed"]
-[connection signal="text_changed" from="menu_buttons/vbox_join_lobby/le_ip_adress" to="." method="_on_le_ip_adress_text_changed"]
+[connection signal="text_changed" from="menu_buttons/vbox_join_lobby/le_room_code" to="." method="_on_le_ip_adress_text_changed"]
 [connection signal="pressed" from="menu_buttons/vbox_join_lobby/bt_join_game" to="." method="_on_bt_join_game_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_join_lobby/bt_cancel_join" to="." method="_on_bt_cancel_join_pressed"]
 [connection signal="pressed" from="menu_buttons/vbox_singleplayer/bt_start_game_sp" to="." method="_on_bt_start_game_sp_pressed"]

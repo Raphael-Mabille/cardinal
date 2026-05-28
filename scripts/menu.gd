@@ -6,10 +6,18 @@ extends Control
 @onready var vbox_singleplayer: VBoxContainer = $menu_buttons/vbox_singleplayer
 @onready var vbox_create_lobby: VBoxContainer = $menu_buttons/vbox_create_lobby
 @onready var vbox_join_lobby: VBoxContainer = $menu_buttons/vbox_join_lobby
-@onready var la_you: Label = $menu_buttons/vbox_create_lobby/la_you
 @onready var vbox_in_remote_lobby: VBoxContainer = $menu_buttons/vbox_in_remote_lobby
 @onready var vbox_local_multiplayer: VBoxContainer = $menu_buttons/vbox_local_multiplayer
 #-----------------------------------------------------------------------------#
+#--------------------------- other ---------------------------#
+@onready var la_you: Label = $menu_buttons/vbox_create_lobby/la_you
+@onready var la_status_display: Label = $la_status_display
+@onready var as_loading: AnimatedSprite2D = $menu_buttons/vbox_join_lobby/as_loading
+@onready var cr_separator_2: ColorRect = $menu_buttons/vbox_join_lobby/cr_separator_2
+@onready var bt_cancel_join: Button = $menu_buttons/vbox_join_lobby/bt_cancel_join
+@onready var la_lobby_host_name: Label = $menu_buttons/vbox_in_remote_lobby/la_lobby_host_name
+@onready var le_room_code: LineEdit = $menu_buttons/vbox_join_lobby/le_room_code
+#-------------------------------------------------------------#
 
 enum State {
 	DISCONNECTED,
@@ -19,6 +27,7 @@ enum State {
 }
 
 var state : State = State.DISCONNECTED
+var mp_menu := false
 
 var adress : String = "127.0.0.1"
 
@@ -51,6 +60,8 @@ func _on_bt_back_pressed() -> void:
 
 	if history.size() <= 1 :
 		bt_back.disabled = true
+		Lobby.send_ui_message.disconnect(handle_message)
+		
 	
 	if state == State.LOBBY_CREATOR :
 		Lobby.player_connected.disconnect(add_player_name)
@@ -94,6 +105,7 @@ func _on_bt_start_game_sp_pressed() -> void:
 
 func _on_bt_multiplayer_pressed() -> void:
 	setCurrent(vbox_multiplayer)
+	Lobby.send_ui_message.connect(handle_message)
 
 func _on_bt_start_game_mp_pressed() -> void:
 	Transition.change_scene_multiplayer(Lobby.player_info.name)
@@ -119,17 +131,20 @@ func remove_player_name(peer_id) -> void:
 	remove_player_name_to_ui(index)
 
 func _on_bt_create_lobby_pressed() -> void:
+	Lobby.create_room()
+	
 	Lobby.player_connected.connect(add_player_name)
 	Lobby.player_disconnected.connect(remove_player_name)
-	Lobby.create_game()
 	setCurrent(vbox_create_lobby)
 	state = State.LOBBY_CREATOR
+	la_status_display.text = "creating room ..."
 
 func _on_bt_join_lobby_pressed() -> void:
 	setCurrent(vbox_join_lobby)
 
 func _on_le_ip_adress_text_changed(new_text: String) -> void:
 	adress = new_text
+
 
 func reset_connection_ui() -> void:
 	as_loading.hide()
@@ -149,13 +164,15 @@ func game_canceled(peer_id) -> void:
 		_on_bt_back_pressed()
 
 func _on_bt_join_game_pressed() -> void:
+	var room_code := le_room_code.text.strip_edges().to_upper()
+	
 	as_loading.show()
 	as_loading.play("default")
 	cr_separator_2.show()
 	bt_cancel_join.show()
 	Lobby.player_connected.connect(add_host_name_ui)
 	Lobby.player_disconnected.connect(game_canceled)
-	Lobby.join_game(adress)
+	Lobby.join_room(room_code)
 	state = State.CONNECTING
 	await Lobby.player_connected;
 	state = State.CONNECTED
@@ -172,45 +189,40 @@ func _on_bt_cancel_join_pressed() -> void:
 	disconect_from_server()
 	reset_connection_ui()
 
-#--------------------------- local multiplayer -------------------------------#
+@onready var bt_connect_to_server: Button = $menu_buttons/vbox_multiplayer/bt_connect_to_server
+@onready var bt_disconnect_from_server: Button = $menu_buttons/vbox_multiplayer/bt_disconnect_from_server
+@onready var bt_create_lobby: Button = $menu_buttons/vbox_multiplayer/bt_create_lobby
+@onready var bt_join_lobby: Button = $menu_buttons/vbox_multiplayer/bt_join_lobby
 
-@onready var le_player_2_name: LineEdit = $menu_buttons/vbox_local_multiplayer/le_player_2_name
-@onready var le_player_3_name: LineEdit = $menu_buttons/vbox_local_multiplayer/le_player_3_name
-@onready var le_player_4_name: LineEdit = $menu_buttons/vbox_local_multiplayer/le_player_4_name
+@onready var la_log_display: Label = $la_log_display
 
-func _on_bt_local_mp_pressed() -> void:
-	setCurrent(vbox_local_multiplayer)
 
-func _on_spin_box_value_changed(value: float) -> void:
-	var int_val := int(value)
-	player_number = int(value)
-	if (int_val == 1) :
-		le_player_2_name.hide()
-		le_player_3_name.hide()
-		le_player_4_name.hide()
-	if (int_val == 2) :
-		le_player_2_name.show()
-		le_player_3_name.hide()
-		le_player_4_name.hide()
-	if (int_val == 3) :
-		le_player_2_name.show()
-		le_player_3_name.show()
-		le_player_4_name.hide()
-	if (int_val == 4) :
-		le_player_2_name.show()
-		le_player_3_name.show()
-		le_player_4_name.show()
+func _on_bt_connect_to_server_pressed() -> void:
+	var err := Lobby.connect_to_server()
+	if err.length():
+		la_status_display.text = err
+	else :
+		la_status_display.text = "connecting to server ..."
 
-func _on_bt_start_local_game_pressed() -> void:
-	pass # TODO
 
-func _on_le_player_2_name_text_changed(new_text: String) -> void:
-	player_names[0] = new_text
+func _on_bt_disconnect_from_server_pressed() -> void:
+	pass
 
-func _on_le_player_3_name_text_changed(new_text: String) -> void:
-	player_names[1] = new_text
 
-func _on_le_player_4_name_text_changed(new_text: String) -> void:
-	player_names[2] = new_text
+func handle_message(msg: String) -> void:
+	match msg:
+		"connected":
+			la_status_display.text = "connected to server"
+			bt_connect_to_server.disabled = true
+			bt_disconnect_from_server.disabled = false
+			bt_create_lobby.disabled = false
+			bt_join_lobby.disabled = false
+		"disconnected":
+			la_status_display.text = "disconnected from server"
+			bt_connect_to_server.disabled = false
+			bt_disconnect_from_server.disabled = true
+		_:
+			la_log_display.text += msg + "\n"
 
-#-----------------------------------------------------------------------------#
+
+#-------------------------------------------------------------#
