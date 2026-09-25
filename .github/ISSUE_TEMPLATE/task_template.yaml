@@ -8,6 +8,7 @@ body:
     attributes:
       value: |
         The title of this issue should be a short summary of the task. The description should provide more details about the task, including any relevant context or background information. Please also include any relevant links or references.
+        scope example: "GUI", "CLI", "Daemon", "Documentation", "Testing", "CI/CD", "Security", "Performance", "Refactoring", "Build System", "Release Management", "Other";
   - type: textarea
     id: scope
     attributes:
