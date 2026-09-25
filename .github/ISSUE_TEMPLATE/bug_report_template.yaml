@@ -11,6 +11,7 @@ body:
         ```
         contact.griffon@proton.me
         ```
+        scope example: "GUI", "CLI", "Daemon", "Documentation", "Testing", "CI/CD", "Security", "Performance", "Refactoring", "Build System", "Release Management", "Other";
   - type: input
     id: contact
     attributes:
