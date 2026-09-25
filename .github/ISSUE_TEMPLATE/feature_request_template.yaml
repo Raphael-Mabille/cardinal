@@ -1,41 +1,39 @@
-name: Task
-description: File a task.
+name: Feature Request
+description: File a feature request.
 title: "[<Scope>]: "
-labels: ["task"]
-type: task
+labels: ["feature"]
+type: feature
 body:
   - type: markdown
     attributes:
       value: |
         The title of this issue should be a short summary of the task. The description should provide more details about the task, including any relevant context or background information. Please also include any relevant links or references.
   - type: textarea
-    id: scope
+    id: reason
     attributes:
-      label: Scope
-      description: A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
-      placeholder: What area of the project does this task affect?
+      label: Reason
+      description: Is your feature request related to a problem? Please describe.
+      placeholder: Ex. I'm always frustrated when [...]
     validations:
       required: true
   - type : textarea
     id: description
     attributes:
       label: Description
-      description: Provide a detailed description of the task.
+      description: Describe the solution you'd like to see implemented.
       placeholder: What needs to be done?
     validations:
       required: true
   - type: textarea
-    id: acceptance-criteria
+    id: alternatives
     attributes:
-      label: Acceptance Criteria
-      description: Define the criteria that must be met for this task to be considered complete.
-      placeholder: What are the conditions for success?
-    validations:
-      required: true
+      label: Alternatives
+      description: Describe any alternative solutions or features you've considered.
+      placeholder: What are the other ways this could be implemented?
   - type: upload
     id: screenshots
     attributes:
       label: Upload screenshots
-      description: If applicable, add screenshots to help explain your task.
+      description: If applicable, add screenshots to help explain your idea.
     validations:
       required: false
