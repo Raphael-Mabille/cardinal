@@ -7,7 +7,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        If this bug is related to a security vulnerability, please do not file it here. Instead, please report it to [our email address](contact.griffon@proton.me).
+        If this bug is related to a security vulnerability, please do not file it here. Instead, please report it to ```contact.griffon@proton.me```
   - type: input
     id: contact
     attributes:
